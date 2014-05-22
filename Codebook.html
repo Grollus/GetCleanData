@@ -144,31 +144,18 @@ hr {
 <body>
 <h2>Data Dictionary - Samsung Data</h2>
 
-<h3>Data Manipulations Performed</h3>
+<h3>Variable Descriptions and Names</h3>
 
-<pre><code>Raw data was imported.  Test and training data sets were bound together by row with activity and subject 
-labels column bound to the data set. Using the feature text file, column names were added.  These column 
-names were &quot;cleaned&quot; by performing the following steps:
-        *characters converted to lower case
-        *numeric activity labels replaced with descriptive (i.e. &quot;Walking&quot;) labels
-        *&quot;-&quot; removed
-        *&quot;()&quot; removed
-        *&quot;(&quot; &amp; &quot;)&quot; removed
-        *&quot;_&quot; removed
-        *&quot;,&quot; removed
+<p><strong>Variable Name</strong>  <em>subject</em></p>
+
+<pre><code>    Identification number for the volunteer carrying out the experiment.  30 volunteers carried out the
+    experiment, each identified with a number 1-30.
 </code></pre>
 
-<h3>Variable Descriptions</h3>
+<p><strong>Variable Name</strong>  <em>activity</em></p>
 
-<p><strong>subject</strong>   </p>
-
-<pre><code>    Identification number for study participant
-    1-30
-</code></pre>
-
-<p><strong>activity</strong></p>
-
-<pre><code>    Description of the activity the subject was performing
+<pre><code>    Description of the activity the subject was performing.  Each volunteer performed all six activities
+    while wearing a Samsung Galaxy S II on their waist.  Activities are label as follows:
 
         *Walking
         *WalkingDownStairs
@@ -178,98 +165,219 @@ names were &quot;cleaned&quot; by performing the following steps:
         *Laying
 </code></pre>
 
-<p><strong>Gyroscope and accelerometer 3-axial data</strong> </p>
+<p><strong>Gyroscope and accelerometer 3-axial data (i.e. features)</strong> </p>
 
-<pre><code>    Normalized between -1, 1
-    Tidy Data contains the average of each of the following variables, grouped by 
-    subject and activity.
+<pre><code>    3-axial linear acceleration and 3-axial angular velocity data was collected from the smartphones
+    accelerometer and gyroscope at a constant rate of 50Hz. The obtained dataset was randomly partitioned
+    into two sets, where 70% of volunteers generated training data and 30% generated test data.
 
-        *tbodyaccmeanx
-        *tbodyaccmeany                 
-        *tbodyaccmeanz                   
-        *tbodyaccstdx
-        *tbodyaccstdy
-        *tbodyaccstdz                   
-        *tgravityaccmeanx                 
-        *tgravityaccmeany                 
-        *tgravityaccmeanz                
-        *tgravityaccstdx               
-        *tgravityaccstdy            
-        *tgravityaccstdz                  
-        *tbodyaccjerkmeanx                
-        *tbodyaccjerkmeany               
-        *tbodyaccjerkmeanz                
-        *tbodyaccjerkstdx                
-        *tbodyaccjerkstdy                 
-        *tbodyaccjerkstdz                 
-        *tbodygyromeanx&quot;                   
-        *tbodygyromeany                   
-        *tbodygyromeanz                   
-        *tbodygyrostdx                    
-        *tbodygyrostdy                    
-        *tbodygyrostdz                    
-        *tbodygyrojerkmeanx               
-        *tbodygyrojerkmeany               
-        *tbodygyrojerkmeanz               
-        *tbodygyrojerkstdx                
-        *tbodygyrojerkstdy                
-        *tbodygyrojerkstdz                
-        *tbodyaccmagmean                  
-        *tbodyaccmagstd                   
-        *tgravityaccmagmean               
-        *tgravityaccmagstd                
-        *tbodyaccjerkmagmean              
-        *tbodyaccjerkmagstd               
-        *tbodygyromagmean                 
-        *tbodygyromagstd                  
-        *tbodygyrojerkmagmean             
-        *tbodygyrojerkmagstd              
-        *fbodyaccmeanx                    
-        *fbodyaccmeany                    
-        *fbodyaccmeanz                    
-        *fbodyaccstdx                     
-        *fbodyaccstdy                     
-        *fbodyaccstdz                     
-        *fbodyaccmeanfreqx                
-        *fbodyaccmeanfreqy                
-        *fbodyaccmeanfreqz                
-        *fbodyaccjerkmeanx                
-        *fbodyaccjerkmeany                
-        *fbodyaccjerkmeanz                
-        *fbodyaccjerkstdx                 
-        *fbodyaccjerkstdy                 
-        *fbodyaccjerkstdz                 
-        *fbodyaccjerkmeanfreqx            
-        *fbodyaccjerkmeanfreqy            
-        *fbodyaccjerkmeanfreqz            
-        *fbodygyromeanx                   
-        *fbodygyromeany                   
-        *fbodygyromeanz                   
-        *fbodygyrostdx                    
-        *fbodygyrostdy                    
-        *fbodygyrostdz                    
-        *fbodygyromeanfreqx               
-        *fbodygyromeanfreqy               
-        *fbodygyromeanfreqz               
-        *fbodyaccmagmean                  
-        *fbodyaccmagstd                   
-        *fbodyaccmagmeanfreq              
-        *fbodybodyaccjerkmagmean          
-        *fbodybodyaccjerkmagstd           
-        *fbodybodyaccjerkmagmeanfreq      
-        *fbodybodygyromagmean             
-        *fbodybodygyromagstd              
-        *fbodybodygyromagmeanfreq         
-        *fbodybodygyrojerkmagmean         
-        *fbodybodygyrojerkmagstd          
-        *fbodybodygyrojerkmagmeanfreq     
-        *angletbodyaccmeangravity         
-        *angletbodyaccjerkmeangravitymean 
-        *angletbodygyromeangravitymean    
-        *angletbodygyrojerkmeangravitymean
-        *anglexgravitymean                
-        *angleygravitymean                
-        *anglezgravitymean                
+    The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and
+    then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The
+    sensor acceleration signal, which has gravitational and body motion components, was separated using a
+    Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to
+    have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From
+    each window, a vector of features was obtained by calculating variables from the time and frequency
+    domain.
+
+    This generated a 561-feature vector with time and frequency domain variables. We have extracted
+    **only** the mean and standard deviation columns of those variables.
+
+    &#39;Tidy&#39; contains the average of each of the following features, grouped by subject and activity.
+
+    This data was normalized between [-1, 1]
+</code></pre>
+
+<p><strong>Variable Names</strong></p>
+
+<p><em>tbodyaccmeanx</em></p>
+
+<p><em>tbodyaccmeany</em>                 </p>
+
+<p><em>tbodyaccmeanz</em>                   </p>
+
+<p><em>tbodyaccstdx</em></p>
+
+<p><em>tbodyaccstdy</em></p>
+
+<p><em>tbodyaccstdz</em>                   </p>
+
+<p><em>tgravityaccmeanx</em>                 </p>
+
+<p><em>tgravityaccmeany</em>                 </p>
+
+<p><em>tgravityaccmeanz</em>                </p>
+
+<p><em>tgravityaccstdx</em>               </p>
+
+<p><em>tgravityaccstdy</em>            </p>
+
+<p><em>tgravityaccstdz</em>                  </p>
+
+<p><em>tbodyaccjerkmeanx</em>                </p>
+
+<p><em>tbodyaccjerkmeany</em>               </p>
+
+<p><em>tbodyaccjerkmeanz</em>                </p>
+
+<p><em>tbodyaccjerkstdx</em>                </p>
+
+<p><em>tbodyaccjerkstdy</em>                 </p>
+
+<p><em>tbodyaccjerkstdz</em>                 </p>
+
+<p><em>tbodygyromeanx</em>                   </p>
+
+<p><em>tbodygyromeany</em>                   </p>
+
+<p><em>tbodygyromeanz</em>                   </p>
+
+<p><em>tbodygyrostdx</em>                    </p>
+
+<p><em>tbodygyrostdy</em>                    </p>
+
+<p><em>tbodygyrostdz</em>                    </p>
+
+<p><em>tbodygyrojerkmeanx</em>               </p>
+
+<p><em>tbodygyrojerkmeany</em>               </p>
+
+<p><em>tbodygyrojerkmeanz</em>               </p>
+
+<p><em>tbodygyrojerkstdx</em>                </p>
+
+<p><em>tbodygyrojerkstdy</em>                </p>
+
+<p><em>tbodygyrojerkstdz</em>                </p>
+
+<p><em>tbodyaccmagmean</em>                  </p>
+
+<p><em>tbodyaccmagstd</em>                   </p>
+
+<p><em>tgravityaccmagmean</em>               </p>
+
+<p><em>tgravityaccmagstd</em>                </p>
+
+<p><em>tbodyaccjerkmagmean</em>              </p>
+
+<p><em>tbodyaccjerkmagstd</em>               </p>
+
+<p><em>tbodygyromagmean</em>                 </p>
+
+<p><em>tbodygyromagstd</em>                  </p>
+
+<p><em>tbodygyrojerkmagmean</em>             </p>
+
+<p><em>tbodygyrojerkmagstd</em>              </p>
+
+<p><em>fbodyaccmeanx</em>                    </p>
+
+<p><em>fbodyaccmeany</em>                    </p>
+
+<p><em>fbodyaccmeanz</em>                    </p>
+
+<p><em>fbodyaccstdx</em>                     </p>
+
+<p><em>fbodyaccstdy</em>                     </p>
+
+<p><em>fbodyaccstdz</em>                     </p>
+
+<p><em>fbodyaccmeanfreqx</em>                </p>
+
+<p><em>fbodyaccmeanfreqy</em>                </p>
+
+<p><em>fbodyaccmeanfreqz</em>                </p>
+
+<p><em>fbodyaccjerkmeanx</em>                </p>
+
+<p><em>fbodyaccjerkmeany</em>                </p>
+
+<p><em>fbodyaccjerkmeanz</em>                </p>
+
+<p><em>fbodyaccjerkstdx</em>                 </p>
+
+<p><em>fbodyaccjerkstdy</em>                 </p>
+
+<p><em>fbodyaccjerkstdz</em>                 </p>
+
+<p><em>fbodyaccjerkmeanfreqx</em>            </p>
+
+<p><em>fbodyaccjerkmeanfreqy</em>            </p>
+
+<p><em>fbodyaccjerkmeanfreqz</em>            </p>
+
+<p><em>fbodygyromeanx</em>                   </p>
+
+<p><em>fbodygyromeany</em>                   </p>
+
+<p><em>fbodygyromeanz</em>                   </p>
+
+<p><em>fbodygyrostdx</em>                    </p>
+
+<p><em>fbodygyrostdy</em>                    </p>
+
+<p><em>fbodygyrostdz</em>                    </p>
+
+<p><em>fbodygyromeanfreqx</em>               </p>
+
+<p><em>fbodygyromeanfreqy</em>               </p>
+
+<p><em>fbodygyromeanfreqz</em>               </p>
+
+<p><em>fbodyaccmagmean</em>                  </p>
+
+<p><em>fbodyaccmagstd</em></p>
+
+<p><em>fbodyaccmagmeanfreq</em></p>
+
+<p><em>fbodybodyaccjerkmagmean</em>  </p>
+
+<p><em>fbodybodyaccjerkmagstd</em> </p>
+
+<p><em>fbodybodyaccjerkmagmeanfreq</em></p>
+
+<p><em>fbodybodygyromagmean</em> </p>
+
+<p><em>fbodybodygyromagstd</em></p>
+
+<p><em>fbodybodygyromagmeanfreq</em></p>
+
+<p><em>fbodybodygyrojerkmagmean</em> </p>
+
+<p><em>fbodybodygyrojerkmagstd</em> </p>
+
+<p><em>fbodybodygyrojerkmagmeanfreq</em>     </p>
+
+<p><em>angletbodyaccmeangravity</em>         </p>
+
+<p><em>angletbodyaccjerkmeangravitymean</em> </p>
+
+<p><em>angletbodygyromeangravitymean</em>    </p>
+
+<p><em>angletbodygyrojerkmeangravitymean</em></p>
+
+<p><em>anglexgravitymean</em>                </p>
+
+<p><em>angleygravitymean</em>                </p>
+
+<p><em>anglezgravitymean</em>   </p>
+
+<h3>Data Manipulations Performed</h3>
+
+<pre><code>Raw data was imported from UCI data file. Testing and training data sets were bound together by row
+(training data then testing data) with activity and subject identifications column bound to the data set.
+&#39;Features&#39; variable names were extracted to label columns. Column names were &quot;cleaned&quot; by performing the
+following steps:
+        *characters converted to lower case
+        *numeric activity labels replaced with descriptive (i.e. &quot;Walking&quot;) labels
+        *&quot;-&quot; removed
+        *&quot;()&quot; removed
+        *&quot;(&quot; &amp; &quot;)&quot; removed
+        *&quot;_&quot; removed
+        *&quot;,&quot; removed
+
+We then choose the mean and standard deviation columns(the mean and standard deviations of the specific
+elements) and put those in a new data set.  Finally, we calculated the averages for each feature, 
+conditioned by subject *and* activity.  This &#39;tidy&#39; data set forms our final product.
 </code></pre>
 
 </body>

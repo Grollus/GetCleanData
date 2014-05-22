@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Commented Code</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h3>Commented Code</h3>
+
+<p><strong>Loading required packages</strong></p>
+
+<p>library(plyr)</p>
+
+<p>library(reshape2)</p>
+
+<p><strong>Reading test data into R</strong></p>
+
+<p>testx &lt;- read.table(&ldquo;./UCI HAR Dataset/test/X_test.txt&rdquo;)</p>
+
+<p>testy &lt;- read.table(&ldquo;./UCI HAR Dataset/test/y_test.txt&rdquo;, sep = &ldquo;\t&rdquo;)</p>
+
+<p><strong>Reading test subject identification into R</strong></p>
+
+<p>testsub &lt;- read.table(&ldquo;./UCI HAR Dataset/test/subject_test.txt&rdquo;)</p>
+
+<p><strong>Reading training data into R</strong></p>
+
+<p>trainx &lt;- read.table(&ldquo;./UCI HAR Dataset/train/X_train.txt&rdquo;)</p>
+
+<p>trainy &lt;- read.table(&ldquo;./UCI HAR Dataset/train/y_train.txt&rdquo;)</p>
+
+<p><strong>Reading training subject identification into R</strong></p>
+
+<p>trainsub &lt;- read.table(&ldquo;./UCI HAR Dataset/train/subject_train.txt&rdquo;)</p>
+
+<p><strong>Combining features data to form data_set</strong></p>
+
+<p>data_set &lt;- rbind(trainx, testx)</p>
+
+<p><strong>Reading &#39;features&#39; into R</strong></p>
+
+<p>features &lt;- read.table(&ldquo;./UCI HAR Dataset/features.txt&rdquo;)</p>
+
+<p><strong>Replacing generic column names with features labels</strong></p>
+
+<p>names(data_set) &lt;- features[,2]</p>
+
+<p><strong>Binding subject id and activity labels to form full data_set</strong></p>
+
+<p>Subject &lt;- rbind(trainsub, testsub)</p>
+
+<p>Subject &lt;- rename(Subject, c(&ldquo;V1&rdquo;=&ldquo;Subject&rdquo;))</p>
+
+<p>Activity &lt;- rbind(trainy, testy)</p>
+
+<p>Activity &lt;- rename(Activity, c(&ldquo;V1&rdquo;=&ldquo;Activity&rdquo;))</p>
+
+<p>data_set &lt;-cbind(Subject, Activity, data_set)</p>
+
+<p><strong>Adding descriptive activity labels</strong></p>
+
+<p>activity.code &lt;- c(Walking=1, Walking_Upstairs=2, Walking_Downstairs=3, Sitting=4, Standing=5, Laying=6)</p>
+
+<p>data_set$Activity &lt;- names(activity.code)[match(data_set$Activity, activity.code)]</p>
+
+<p><strong>Formatting Column Names</strong></p>
+
+<p>names(data_set) &lt;- tolower(names(data_set))</p>
+
+<p>names(data_set) &lt;- gsub(&ldquo;-&rdquo;,&ldquo;&rdquo;, names(data_set))</p>
+
+<p>names(data_set) &lt;- gsub(&ldquo;\\( )","", names(data_set))
+  
+  names(data_set) <- gsub("\\(", "", names(data_set))
+  
+  names(data_set) <- gsub("\ \)&rdquo;, &ldquo;&rdquo;, names(data_set))</p>
+
+<p>names(data_set) &lt;- gsub(&ldquo;,&rdquo;, &ldquo;&rdquo;, names(data_set))</p>
+
+<p><strong>Extracting columns pertaining to mean and std; form new &#39;tidy&#39; data set</strong></p>
+
+<p>tidy_set &lt;- data_set[grepl(&ldquo;subject|activity|mean|std&rdquo;, names(data_set)) == T]</p>
+
+<p><strong>Calculating averages for each column by subject + activity; cleaned activity names of &ldquo;_&rdquo;</strong>
+<strong>Completed &#39;tidy&#39; data set formed here</strong></p>
+
+<p>melted &lt;- melt(tidy_set, id=c(&ldquo;subject&rdquo;,&ldquo;activity&rdquo;), measure.vars=names(tidy_set[,3:88]))</p>
+
+<p>tidy &lt;- dcast(melted, subject + activity ~ variable, mean)</p>
+
+<p>tidy$activity &lt;- gsub(&ldquo;_&rdquo;, &ldquo;&rdquo;, tidy$activity)</p>
+
+<p><strong>Writing &#39;tidy&#39; data set to text file for upload</strong></p>
+
+<p>write.table(tidy, file=&ldquo;tidy.txt&rdquo;)</p>
+
+<h3>Additional Explanation</h3>
+
+<pre><code>Raw data was imported from UCI data file. Testing and training data sets were bound together by row
+(training data then testing data) with activity and subject identifications column bound to the data set.
+&#39;Features&#39; variable names were extracted to label columns. Column names were &quot;cleaned&quot; by performing the
+following steps:
+        *characters converted to lower case
+        *numeric activity labels replaced with descriptive (i.e. &quot;Walking&quot;) labels
+        *&quot;-&quot; removed
+        *&quot;()&quot; removed
+        *&quot;(&quot; &amp; &quot;)&quot; removed
+        *&quot;_&quot; removed
+        *&quot;,&quot; removed
+
+We chose to approach which mean and standard deviation columns to select by selecting any column where
+mean|std was present in the feature name.  This allowed us, when casting the frames by subject and 
+activity type, to present a clean set of feature means for each subjects measurements for each activity.
+This seems to be the most useful presentation for the researchers as they easily see sumary statistics of 
+the data, while still preserving the original data_set for performing more in depth statistical analysis.
+Essentially, the &#39;tidy&#39; data set sounded like it was meant to be summary in nature, so that is the 
+approach we took.
+</code></pre>
+
+</body>
+
+</html>
+
